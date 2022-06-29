@@ -1,0 +1,79 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: broker-certificate
+  namespace: default
+spec:
+  dnsNames:
+    - broker.med-united.health
+  secretName: broker-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broker
+  labels:
+    app: broker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: broker
+  template:
+    metadata:
+      labels:
+        app: broker
+    spec:
+      containers:
+        - name: broker
+          image: apache/activemq-artemis
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: broker
+spec:
+  selector:
+    app: broker
+  ports:
+    - port: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: broker
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/cors-allow-headers: Content-Type
+    nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS
+    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
+    nginx.ingress.kubernetes.io/cors-max-age: "86400"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  tls:
+    - hosts:
+        - broker.med-united.health
+      secretName: broker-tls
+  rules:
+    - host: broker.med-united.health
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: broker
+                port:
+                  number: 8080
