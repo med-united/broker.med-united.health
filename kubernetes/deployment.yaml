@@ -34,7 +34,7 @@ spec:
           image: quay.io/artemiscloud/activemq-artemis-broker
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8161
           env:
             - name: AMQ_USER
               valueFrom:
@@ -57,7 +57,7 @@ spec:
   selector:
     app: broker
   ports:
-    - port: 8080
+    - port: 8161
 
 ---
 
@@ -87,4 +87,4 @@ spec:
               service:
                 name: broker
                 port:
-                  number: 8080
+                  number: 8161
