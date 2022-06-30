@@ -46,8 +46,6 @@ spec:
                 secretKeyRef:
                   name: broker-secret
                   key: password
-            - name: DISABLE_SECURITY
-              value: "true"
 
 ---
 
@@ -69,11 +67,7 @@ metadata:
   name: broker
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/cors-allow-headers: Content-Type, Content-Security-Policy
-    nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS
-    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
-    nginx.ingress.kubernetes.io/cors-max-age: "86400"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
 spec:
   tls:
     - hosts:
