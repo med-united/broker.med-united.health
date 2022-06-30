@@ -47,7 +47,7 @@ spec:
                   name: broker-secret
                   key: password
             - name: DISABLE_SECURITY
-              value: "TRUE"
+              value: true
 
 ---
 
