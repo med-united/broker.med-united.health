@@ -48,6 +48,8 @@ spec:
                   key: password
             - name: DISABLE_SECURITY
               value: "true"
+            - name: ENABLE_JMX
+              value: "true"
 
 ---
 
