@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: broker
-          image: apache/activemq-artemis
+          image: quay.io/artemiscloud/activemq-artemis-broker
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
