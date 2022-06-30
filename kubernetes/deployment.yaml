@@ -31,17 +31,17 @@ spec:
     spec:
       containers:
         - name: broker
-          image: quay.io/artemiscloud/activemq-artemis-broker
+          image: vromero/activemq-artemis:latest-alpine
           imagePullPolicy: Always
           ports:
             - containerPort: 8161
           env:
-            - name: AMQ_USER
+            - name: ARTEMIS_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: broker-secret
                   key: user
-            - name: AMQ_PASSWORD
+            - name: ARTEMIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: broker-secret
@@ -69,7 +69,6 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/cors-allow-headers: Content-Type
     nginx.ingress.kubernetes.io/cors-allow-methods: POST, GET, OPTIONS
-    nginx.ingress.kubernetes.io/cors-allow-origin: https://broker.med-united.health
     nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
     nginx.ingress.kubernetes.io/cors-max-age: "86400"
     nginx.ingress.kubernetes.io/enable-cors: "true"
