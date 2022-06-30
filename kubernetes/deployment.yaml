@@ -35,6 +35,17 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: AMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: broker-secret
+                  key: user
+            - name: AMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: broker-secret
+                  key: password
 
 ---
 
