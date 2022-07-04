@@ -59,7 +59,14 @@ spec:
   selector:
     app: broker
   ports:
-    - port: 8161
+    - name: dashboard
+      port: 8161
+      targetPort: 8161
+      protocol: TCP
+    - name: stomp
+      port: 61613
+      targetPort: 61613
+      protocol: TCP
 
 ---
 
