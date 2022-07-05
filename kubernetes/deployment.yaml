@@ -34,6 +34,7 @@ spec:
           image: vromero/activemq-artemis:latest
           imagePullPolicy: Always
           ports:
+            - containerPort: 61613
             - containerPort: 8161
           env:
             - name: ARTEMIS_USERNAME
@@ -54,7 +55,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: broker
+  name: broker-ui
 spec:
   selector:
     app: broker
@@ -63,6 +64,17 @@ spec:
       port: 8161
       targetPort: 8161
       protocol: TCP
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: broker-stomp
+spec:
+  selector:
+    app: broker
+  ports:
     - name: stomp
       port: 61613
       targetPort: 61613
@@ -90,6 +102,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: broker
+                name: broker-ui
                 port:
                   number: 8161
+          - path: /stomp
+            pathType: Prefix
+            backend:
+              service:
+                name: broker-stomp
+                port:
+                  number: 61613
