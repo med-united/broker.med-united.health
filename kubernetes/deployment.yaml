@@ -20,6 +20,7 @@ metadata:
   labels:
     app: broker
 spec:
+  serviceName: broker-service
   replicas: 1
   selector:
     matchLabels:
