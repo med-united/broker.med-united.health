@@ -53,16 +53,11 @@ spec:
           volumeMounts:
             - name: broker-data
               mountPath: /var/lib/artemis/data
-      volumes:
-        - name: broker-data
-          configMap:
-            name: broker-data
   volumeClaimTemplates:
     - metadata:
         name: broker-data
       spec:
         accessModes: [ "ReadWriteOnce" ]
-        storageClassName: "broker"
         resources:
           requests:
             storage: 1Gi
