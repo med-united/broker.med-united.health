@@ -52,7 +52,7 @@ spec:
               value: "true"
           volumeMounts:
             - name: broker-data
-              mountPath: /var/lib/artemis/data
+              mountPath: /mnt/data
   volumeClaimTemplates:
     - metadata:
         name: broker-data
