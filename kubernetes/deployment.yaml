@@ -30,6 +30,8 @@ spec:
       labels:
         app: broker
     spec:
+      securityContext:
+        fsGroup: 5050
       containers:
         - name: broker
           image: vromero/activemq-artemis:latest
