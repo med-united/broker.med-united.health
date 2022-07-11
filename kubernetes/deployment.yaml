@@ -49,7 +49,7 @@ spec:
                   name: broker-secret
                   key: password
             - name: DISABLE_SECURITY
-              value: "true"
+              value: "false"
           volumeMounts:
             - name: broker-data
               mountPath: /mnt/data
