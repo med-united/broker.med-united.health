@@ -49,10 +49,10 @@ spec:
                   name: broker-secret
                   key: password
             - name: DISABLE_SECURITY
-              value: "false"
+              value: "true"
           volumeMounts:
             - name: broker-data
-              mountPath: /mnt/data
+              mountPath: /var/lib/artemis/data
   volumeClaimTemplates:
     - metadata:
         name: broker-data
